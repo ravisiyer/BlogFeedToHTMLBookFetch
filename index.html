@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barebones Blog Feed to HTML Book</title>
+    <style>
+      body {
+        padding: 20px;
+        margin: 20px;
+        max-width: 1200px;
+      }
+      main h2 {
+        word-break: break-all;
+      }
+      form,
+      form hr {
+        width: 600px;
+      }
+      form h1,
+      form h2,
+      form hr,
+      form label,
+      form button,
+      form input,
+      form textarea,
+      form p {
+        margin: 5px;
+      }
+      form span {
+        word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="main">
+      <form id="form">
+        <h2>Barebones Blog Feed to HTML Book</h2>
+        <div id="input-field-group">
+          <label for="blog-protocol-hostname"
+            >Blog hostname with protocol (e.g.
+            https://raviswdev.blogspot.com/):</label
+          ><br />
+          <input
+            type="text"
+            size="80"
+            id="blog-protocol-hostname"
+            name="blog-protocol-hostname"
+            value="https://raviswdev.blogspot.com/"
+          /><br />
+          <label for="num-posts"
+            >Number of latest posts to include (1 to 100):</label
+          ><br />
+          <input
+            type="number"
+            id="num-posts"
+            name="num-posts"
+            min="1"
+            max="100"
+            value="5"
+          /><br />
+          <p id="or">OR</p>
+          <p>
+            If below field is non-empty, above fields will be ignored. Example
+            value for below field:<br />
+            https://raviswdev.blogspot.com/feeds/posts/default/?max-results=2&alt=json
+          </p>
+          <label for="full-blog-feed-url"
+            >Full blog feed URL to be sent to proxy server (without proxy server
+            URL):</label
+          ><br />
+          <textarea
+            id="full-blog-feed-url"
+            name="full-blog-feed-url"
+            rows="4"
+            cols="80"
+          ></textarea>
+          <br />
+        </div>
+        <input type="submit" id="show-blog-book" value="Show Blog Book" />
+        <p>Fetch GET URL: <span id="fetch-get-url"></span></p>
+        <p id="form-alert"></p>
+      </form>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
