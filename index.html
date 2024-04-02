@@ -6,8 +6,8 @@
     <title>Blogger Barebones Blog Feed to HTML Book</title>
     <style>
       body {
-        padding: 20px;
-        margin: 20px;
+        padding-left: 20px;
+        margin-left: 20px;
         max-width: 1200px;
       }
       main h2 {
@@ -15,7 +15,7 @@
       }
       form,
       form hr {
-        width: 600px;
+        width: 700px;
       }
       form h1,
       form h2,
@@ -34,6 +34,9 @@
       form input[type="submit"] {
         color: white;
         background-color: black;
+      }
+      form #input-field-group {
+        border: 2px solid;
       }
     </style>
   </head>
@@ -72,7 +75,23 @@
             max="150"
             value="5"
           /><br />
-          <p id="or">OR</p>
+          <label for="search">Search string:</label><br />
+          <input
+            type="text"
+            size="80"
+            id="search"
+            name="search"
+            value=""
+          /><br />
+          <p>
+            <a
+              href="https://developers.google.com/gdata/docs/2.0/reference#Queries"
+              >See parameter q in Blogger/Google reference for search format</a
+            >
+          </p>
+        </div>
+        <p id="or">OR</p>
+        <div id="input-field-group">
           <p>
             If below field is non-empty, above fields will be ignored. Example
             values for below field:
@@ -99,6 +118,9 @@
         </div>
         <input type="submit" id="show-blog-book" value="Show Blog Book" />
         <span>You may need to enable pop-up window in browser</span>
+        <p>
+          <a href="howtosaveblogbook.html">How to save generated blog book?</a>
+        </p>
         <p>Fetch GET URL: <span id="fetch-get-url"></span></p>
         <p id="form-alert"></p>
       </form>

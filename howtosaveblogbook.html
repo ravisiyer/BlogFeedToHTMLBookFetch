@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to save blog book?</title>
+    <style>
+      body {
+        padding-left: 20px;
+        margin-left: 20px;
+        max-width: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>How to save blog book?</h1>
+    <p>
+      The blog book is dynamically rendered (as HTML) in a pop-up window. Chrome
+      browser's Save As ... command used with 'Save as type:' specified as
+      'Webpage, HTML Only' does not save the dynamically rendered HTML. Its Save
+      As 'Webpage, Complete' saves the dynamically rendered HTML but it also
+      saves all the image files in a separate folder. Similarly its Save As
+      'Webpage, Single File (*.mhtml)' results in a single .mhtml file being
+      created which has all text and images in the (dynamically) rendered page.
+    </p>
+    <p>
+      In Chrome browser, I am using&nbsp;<a
+        href="https://chromewebstore.google.com/detail/save-rendered-html/pdlopbmgodpapaoeiagfcdcgdhmdpgpk"
+        >Save Rendered HTML Chrome extension</a
+      >&nbsp; to save the dyanmically rendered HTML as 'HTML Only' with image
+      links pointing to blog. But that seems to need a web server like Live
+      Server showing the blog book page (and the blog book input form page).
+    </p>
+    <p>
+      Print as PDF can be used to save the (dynamically) rendered page as PDF.
+    </p>
+  </body>
+</html>

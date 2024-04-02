@@ -14,6 +14,7 @@ const blogProtocolHostnameElm = document.getElementById(
 );
 
 const numPostsElm = document.getElementById("num-posts");
+const searchElm = document.getElementById("search");
 const fullBlogFeedURLElm = document.getElementById("full-blog-feed-url");
 const formEl = document.getElementById("form");
 const showBlogBookBtn = document.getElementById("show-blog-book");
@@ -36,15 +37,21 @@ formEl.addEventListener("submit", async (e) => {
       "?max-results=" +
       numPosts +
       "&alt=json";
+    if (searchElm.value != "") {
+      feedReqURL += "&q=" + searchElm.value;
+    }
   }
-  fetchGetURLElm.innerHTML = feedReqURL;
+  console.log(feedReqURL);
+  const encodedFeedReqURL = encodeURI(feedReqURL);
+  // fetchGetURLElm.innerHTML = feedReqURL;
+  fetchGetURLElm.innerHTML = encodedFeedReqURL;
   const options = {
     method: "GET",
     muteHttpExceptions: true,
   };
-  console.log(feedReqURL);
   try {
-    response = await fetch(feedReqURL, options);
+    // response = await fetch(feedReqURL, options);
+    response = await fetch(encodedFeedReqURL, options);
     console.log("response");
     console.log(response);
     if (!response.ok) {
@@ -60,8 +67,13 @@ formEl.addEventListener("submit", async (e) => {
     console.log("data");
     console.log(data);
     let contentHTML = "";
-    if (data.feed.entry) {
-      contentHTML += `<h2>Posts returned by fetch GET URL: ${feedReqURL}</h2>`;
+    contentHTML += `<p><a href="howtosaveblogbook.html">How to save generated blog book?</a></p>`;
+    // contentHTML += `<h2>Posts returned by fetch GET URL: ${feedReqURL}</h2>`;
+    contentHTML += `<h2>Posts returned by fetch GET URL: ${encodedFeedReqURL}</h2>`;
+    if (data.feed.openSearch$totalResults.$t === "0") {
+      contentHTML += `<p>Number of posts returned: 0</p>`;
+    } else if (data.feed.entry) {
+      // contentHTML += `<h2>Posts returned by fetch GET URL: ${feedReqURL}</h2>`;
       contentHTML += `<p>Number of posts returned: ${data.feed.entry.length}</p>`;
       const now = new Date();
       contentHTML += `<p>Date and Time: ${now.toString()}<br/><br/><br/><hr/><hr/><hr/></p>`;
