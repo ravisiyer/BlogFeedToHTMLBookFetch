@@ -25,11 +25,12 @@ formEl.addEventListener("submit", async (e) => {
   formAlertElm.innerHTML = "";
   let numPosts = numPostsElm.value;
   if (numPosts === "") numPosts = 1;
-  let feedReqURL = corsAnywhereURL;
+  let feedReqURL = "";
   if (fullBlogFeedURLElm.value != "") {
     feedReqURL += fullBlogFeedURLElm.value;
   } else {
     feedReqURL +=
+      corsAnywhereURL +
       blogProtocolHostnameElm.value +
       "feeds/posts/default/" +
       "?max-results=" +
@@ -59,17 +60,23 @@ formEl.addEventListener("submit", async (e) => {
     console.log("data");
     console.log(data);
     let contentHTML = "";
-    contentHTML += `<h2>Posts returned by fetch GET URL: ${feedReqURL}</h2>`;
-    const now = new Date();
-    contentHTML += `<p><br/>on ${now.toString()}<br/><br/><br/><hr/><hr/><hr/></p>`;
-    for (i in data.feed.entry) {
+    if (data.feed.entry) {
+      contentHTML += `<h2>Posts returned by fetch GET URL: ${feedReqURL}</h2>`;
+      contentHTML += `<p>Number of posts returned: ${data.feed.entry.length}</p>`;
+      const now = new Date();
+      contentHTML += `<p>Date and Time: ${now.toString()}<br/><br/><br/><hr/><hr/><hr/></p>`;
+      for (i in data.feed.entry) {
+        contentHTML +=
+          "<h1>" +
+          data.feed.entry[i].title.$t +
+          "</h1>" +
+          data.feed.entry[i].content.$t +
+          "<hr />" +
+          "<hr />";
+      }
+    } else {
       contentHTML +=
-        "<h1>" +
-        data.feed.entry[i].title.$t +
-        "</h1>" +
-        data.feed.entry[i].content.$t +
-        "<hr />" +
-        "<hr />";
+        "<h2>Unexpected response from fetch and so cannot create blog book.</h2>";
     }
 
     // Why is below SetTimeout needed?
@@ -92,7 +99,12 @@ formEl.addEventListener("submit", async (e) => {
     // from fetch and then add to the contents of the blogbook post by post instead of doing it all at once.
     // But that is more programming work and I am not ready now to spend time on that.
   } catch (error) {
-    formAlertElm.innerHTML = error;
+    formAlertElm.innerHTML = error.message;
+    if (error.message.toLowerCase().includes("failed to fetch")) {
+      formAlertElm.innerHTML += ` ... If the specified URL works on a browser, then this could be due to a CORS error.
+         See browser console (in Chrome, mouse right-click -> Inspect -> Console)
+          to confirm whether it is a CORS error`;
+    }
     console.log("error");
     console.log(error);
   }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Barebones Blog Feed to HTML Book</title>
+    <title>Blogger Barebones Blog Feed to HTML Book</title>
     <style>
       body {
         padding: 20px;
@@ -27,7 +27,8 @@
       form p {
         margin: 5px;
       }
-      form span {
+      form span,
+      form li {
         word-break: break-all;
       }
     </style>
@@ -35,10 +36,18 @@
   <body>
     <main id="main">
       <form id="form">
-        <h2>Barebones Blog Feed to HTML Book</h2>
+        <h2>Blogger Barebones Blog Feed to HTML Book</h2>
+        <p>By default, uses proxy server to bypass CORS errors</p>
+        <p>
+          <a
+            href="https://raviswdev.blogspot.com/2024/03/notes-on-bypassing-cors-in-javascript.html"
+            >Blog post related to this program</a
+          >
+        </p>
+        <br />
         <div id="input-field-group">
           <label for="blog-protocol-hostname"
-            >Blog hostname with protocol (e.g.
+            >Blogger blog hostname with protocol (e.g.
             https://raviswdev.blogspot.com/):</label
           ><br />
           <input
@@ -62,12 +71,19 @@
           <p id="or">OR</p>
           <p>
             If below field is non-empty, above fields will be ignored. Example
-            value for below field:<br />
-            https://raviswdev.blogspot.com/feeds/posts/default/?max-results=2&alt=json
+            values for below field:
           </p>
+          <ul>
+            <li>
+              https://cors-anywhere.herokuapp.com/https://raviswdev.blogspot.com/feeds/posts/default/?max-results=2&alt=json
+            </li>
+            <li>
+              http://localhost:3001/feeds/posts/default/?max-results=5&alt=json
+            </li>
+          </ul>
           <label for="full-blog-feed-url"
-            >Full blog feed URL to be sent to proxy server (without proxy server
-            URL):</label
+            >Full blog feed URL to be provided to fetch function with method
+            GET:</label
           ><br />
           <textarea
             id="full-blog-feed-url"
@@ -78,6 +94,7 @@
           <br />
         </div>
         <input type="submit" id="show-blog-book" value="Show Blog Book" />
+        <span>You may need to enable pop-up window in browser</span>
         <p>Fetch GET URL: <span id="fetch-get-url"></span></p>
         <p id="form-alert"></p>
       </form>
