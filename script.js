@@ -65,15 +65,38 @@ formEl.addEventListener("submit", async (e) => {
       contentHTML += `<p>Number of posts returned: ${data.feed.entry.length}</p>`;
       const now = new Date();
       contentHTML += `<p>Date and Time: ${now.toString()}<br/><br/><br/><hr/><hr/><hr/></p>`;
+      let postURL = "";
+      let postTitle = "";
+      let publishedDate, updatedDate;
       for (i in data.feed.entry) {
+        if (data.feed.entry[i].link[4].rel === "alternate") {
+          postURL = data.feed.entry[i].link[4].href;
+          postTitle = `<a href="${postURL}">${data.feed.entry[i].title.$t}</a>`;
+        } else {
+          postURL = "";
+          postTitle = data.feed.entry[i].title.$t;
+        }
+        publishedDate = new Date(data.feed.entry[i].published.$t);
+        updatedDate = new Date(data.feed.entry[i].updated.$t);
         contentHTML +=
           "<h1>" +
-          data.feed.entry[i].title.$t +
+          // data.feed.entry[i].title.$t +
+          postTitle +
           "</h1>" +
+          "<p>Published: " +
+          // data.feed.entry[i].published.$t.toString() +
+          publishedDate.toString() +
+          "</p>" +
+          "<p>Updated: " +
+          // data.feed.entry[i].updated.$t.toString() +
+          updatedDate.toString() +
+          "</p>" +
+          "<hr />" +
           data.feed.entry[i].content.$t +
           "<hr />" +
           "<hr />";
       }
+      contentHTML += `<h2>***** End of Blog Book *****</h2>`;
     } else {
       contentHTML +=
         "<h2>Unexpected response from fetch and so cannot create blog book.</h2>";
