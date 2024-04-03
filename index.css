@@ -1,0 +1,33 @@
+body {
+  padding-left: 20px;
+  margin-left: 20px;
+  max-width: 1200px;
+}
+main h2 {
+  word-break: break-all;
+}
+form,
+form hr {
+  width: 700px;
+}
+form h1,
+form h2,
+form hr,
+form label,
+form button,
+form input,
+form textarea,
+form p {
+  margin: 5px;
+}
+form span,
+form li {
+  word-break: break-all;
+}
+form input[type="submit"] {
+  color: white;
+  background-color: black;
+}
+form #input-field-group {
+  border: 2px solid;
+}

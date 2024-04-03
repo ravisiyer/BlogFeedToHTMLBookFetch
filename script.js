@@ -43,14 +43,12 @@ formEl.addEventListener("submit", async (e) => {
   }
   console.log(feedReqURL);
   const encodedFeedReqURL = encodeURI(feedReqURL);
-  // fetchGetURLElm.innerHTML = feedReqURL;
   fetchGetURLElm.innerHTML = encodedFeedReqURL;
   const options = {
     method: "GET",
     muteHttpExceptions: true,
   };
   try {
-    // response = await fetch(feedReqURL, options);
     response = await fetch(encodedFeedReqURL, options);
     console.log("response");
     console.log(response);
@@ -68,12 +66,10 @@ formEl.addEventListener("submit", async (e) => {
     console.log(data);
     let contentHTML = "";
     contentHTML += `<p><a href="howtosaveblogbook.html">How to save generated blog book?</a></p>`;
-    // contentHTML += `<h2>Posts returned by fetch GET URL: ${feedReqURL}</h2>`;
     contentHTML += `<h2>Posts returned by fetch GET URL: ${encodedFeedReqURL}</h2>`;
     if (data.feed.openSearch$totalResults.$t === "0") {
       contentHTML += `<p>Number of posts returned: 0</p>`;
     } else if (data.feed.entry) {
-      // contentHTML += `<h2>Posts returned by fetch GET URL: ${feedReqURL}</h2>`;
       contentHTML += `<p>Number of posts returned: ${data.feed.entry.length}</p>`;
       const now = new Date();
       contentHTML += `<p>Date and Time: ${now.toString()}<br/><br/><br/><hr/><hr/><hr/></p>`;
@@ -92,15 +88,12 @@ formEl.addEventListener("submit", async (e) => {
         updatedDate = new Date(data.feed.entry[i].updated.$t);
         contentHTML +=
           "<h1>" +
-          // data.feed.entry[i].title.$t +
           postTitle +
           "</h1>" +
           "<p>Published: " +
-          // data.feed.entry[i].published.$t.toString() +
           publishedDate.toString() +
           "</p>" +
           "<p>Updated: " +
-          // data.feed.entry[i].updated.$t.toString() +
           updatedDate.toString() +
           "</p>" +
           "<hr />" +
